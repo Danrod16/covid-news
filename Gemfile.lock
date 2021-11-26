@@ -102,8 +102,6 @@ GEM
       activesupport (>= 5.0)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
-    jbuilder (2.11.3)
-      activesupport (>= 5.0.0)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -214,6 +212,9 @@ GEM
       concurrent-ruby (~> 1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
+    watir (7.0.0)
+      regexp_parser (>= 1.2, < 3)
+      selenium-webdriver (~> 4.0)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -246,7 +247,6 @@ DEPENDENCIES
   devise
   dotenv-rails
   font-awesome-sass
-  jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)
   pry-byebug
@@ -261,6 +261,7 @@ DEPENDENCIES
   spring
   turbolinks (~> 5)
   tzinfo-data
+  watir
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
