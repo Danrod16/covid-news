@@ -4,6 +4,17 @@ class CountriesController < ApplicationController
   # GET /countries
   def index
     @countries = Country.all
+    # the `geocoded` scope filters only countrys with coordinates (latitude & longitude)
+    @markers = @countries.geocoded.map do |country|
+       icon = country.score.positive? ? "icon-positive.png" : "icon.png"
+      {
+        lat: country.latitude,
+        lng: country.longitude,
+        info_window: render_to_string(partial: "info_window",
+         locals: { country: country }),
+        image_url: helpers.asset_url(icon)
+      }
+    end
   end
 
   # GET /countries/1

@@ -1,3 +1,4 @@
+require "textmood"
 class EmiDataService
   require 'webdrivers'
   require 'watir'
@@ -22,13 +23,26 @@ class EmiDataService
   def create_countries(html_doc)
     html_doc.css(".travel-requirements-list__item").each do |element|
       country = element.css('.travel-requirements-list__item-header').text.split('to')[1]&.strip
-      timestamp = element.css("p").first
-      summary = element.css("p")[1].text
-      unless Country.find_by(name: country) || country.nil?
-        Country.create!(
+      timestamp = element.css(".travel-requirements-list__time-stamp").text
+      summary = element.css("p").map {|p| p.text}
+      pcr = summary.detect {|e| e.include?("negative COVID‑19 PCR test")}
+      quarentine = summary.detect {|e| e.include?("quarantine")}
+      existing_country = Country.find_by(name: country)
+      tm = TextMood.new(language: "en")
+      score = tm.analyze(element.css("p"))
+      params = {
           name: country,
-          description: summary
-          )
+          description: summary,
+          quarentine: quarentine,
+          pcr_needed: pcr,
+          address: country,
+          score: score,
+          last_update: timestamp
+      }
+      unless existing_country || country.nil?
+        Country.create!(params)
+      else
+        existing_country&.update(params)
       end
     end
   end

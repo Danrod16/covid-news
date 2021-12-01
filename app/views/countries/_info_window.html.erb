@@ -1,0 +1,21 @@
+<h1><%= country.name %></h1>
+<div class="info-grid">
+  <div class="col-grid">
+    <% if country.pcr_needed %>
+      <%= image_tag "pcr-icon.png", class: "info-icons" %>
+      <p>PCR</p>
+    <% else %>
+    <%= image_tag "no-pcr-icon.png", class: "info-icons" %>
+      <p>No PCR</p>
+    <% end %>
+  </div>
+  <div class="col-grid">
+    <% if country.quarentine %>
+      <%= image_tag "quarantaine.png", class: "info-icons" %>
+    <% else %>
+      <%= image_tag "no-quarantaine.png", class: "info-icons" %>
+    <% end %>
+  </div>
+</div>
+<br>
+<small class="timestamp"><%= country.last_update %></small>
